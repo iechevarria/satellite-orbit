@@ -25,24 +25,20 @@
 	renderer.setSize(width, height);
 
 
-	// Draw orbits
-	var lineGeometry = new THREE.Geometry();
-	var vertArray = lineGeometry.vertices;
+	var orbitGeometry = new THREE.Geometry();
+	var vertArray = orbitGeometry.vertices;
+
+	// Draw orbit
 	for (var i = -180; i < 180; i++) {
 		var lat = (0.02 * i) * (Math.PI / 180.0);
 		var lon = (4 * i) * (Math.PI / 180.0);
 		var alt = 1.0 + 354 / 6371;
-
-		var x = alt * Math.cos(lat) * Math.cos(-lon);
-		var z = alt * Math.cos(lat) * Math.sin(-lon);
-		var y = alt * Math.sin(lat);
-
-		vertArray.push( new THREE.Vector3(x, y, z) );
-		lineGeometry.computeLineDistances();
+		addVectorToOrbit(vertArray, lat, lon, alt);
 	}
-	var lineMaterial = new THREE.LineBasicMaterial( { color: 0x00ff, linewidth: 100, } );
-	var line = new THREE.Line( lineGeometry, lineMaterial );
-	scene.add(line);
+
+	var orbitMaterial = new THREE.LineBasicMaterial( { color: 0xff } );
+	var orbit = new THREE.Line( orbitGeometry, orbitMaterial );
+	scene.add(orbit);
 
   var earth = makeEarth(radius, segments);
 	scene.add(earth);
@@ -58,17 +54,24 @@
 
 	earth.rotation.z = -0.2;
 	earth.rotation.x = 0.2;
-	line.rotation.z = -0.2;
-	line.rotation.x = 0.2;
+	orbit.rotation.z = -0.2;
+	orbit.rotation.x = 0.2;
 
 	render();
 
 	function render() {
 		controls.update();
 		earth.rotation.y -= 0.0005;
-		line.rotation.y -= 0.0005;
+		orbit.rotation.y -= 0.0005;
 		requestAnimationFrame(render);
 		renderer.render(scene, camera);
+	}
+
+	function addVectorToOrbit(vertArray, lat, lon, alt) {
+		var x = alt * Math.cos(lat) * Math.cos(-lon);
+		var z = alt * Math.cos(lat) * Math.sin(-lon);
+		var y = alt * Math.sin(lat);
+		vertArray.push(new THREE.Vector3(x, y, z));
 	}
 
 	function makeEarth(radius, segments) {
