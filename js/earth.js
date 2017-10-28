@@ -1,5 +1,5 @@
-// Created by Bjorn Sandvik - thematicmapping.org
-// Modified by Ivan Echevarria - echevarria.io
+// Written by Ivan Echevarria - echevarria.io
+// Based on Bjorn Sandvik's webgl-earth - thematicmapping.org
 // Outline code from https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Outline.html
 
 (function () {
