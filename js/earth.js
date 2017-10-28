@@ -15,7 +15,6 @@
 
 	var radius   = 1;
 	var	segments = 64;
-	var	rotation = 0;  
 
 	var scene = new THREE.Scene();
 
@@ -26,6 +25,7 @@
 	renderer.setSize(width, height);
 
 
+	// Draw orbits
 	var lineGeometry = new THREE.Geometry();
 	var vertArray = lineGeometry.vertices;
 	for (var i = -180; i < 180; i++) {
@@ -40,7 +40,6 @@
 		vertArray.push( new THREE.Vector3(x, y, z) );
 		lineGeometry.computeLineDistances();
 	}
-	
 	var lineMaterial = new THREE.LineBasicMaterial( { color: 0x00ff, linewidth: 100, } );
 	var line = new THREE.Line( lineGeometry, lineMaterial );
 	scene.add(line);
@@ -57,12 +56,17 @@
 
 	webglEl.appendChild(renderer.domElement);
 
+	earth.rotation.z = -0.2;
+	earth.rotation.x = 0.2;
+	line.rotation.z = -0.2;
+	line.rotation.x = 0.2;
+
 	render();
 
 	function render() {
 		controls.update();
-		earth.rotation.y += 0.0005;
-		line.rotation.y += 0.0005;
+		earth.rotation.y -= 0.0005;
+		line.rotation.y -= 0.0005;
 		requestAnimationFrame(render);
 		renderer.render(scene, camera);
 	}
