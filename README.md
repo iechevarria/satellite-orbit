@@ -1,3 +1,3 @@
 # 3D-orbit
 
-Uses three.js to display orbits around Earth 
+Uses three.js to display orbits around Earth. ![](img/screenshot.png)

@@ -75,7 +75,7 @@
 		return new THREE.Mesh(
 			new THREE.SphereGeometry(radius, segments, segments),
 			new THREE.MeshBasicMaterial({
-				map:         THREE.ImageUtils.loadTexture('images/outlines.png'),
+				map: THREE.ImageUtils.loadTexture('img/outlines.png'),
 			})
 		);
 	}
